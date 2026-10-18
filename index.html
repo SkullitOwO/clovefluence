@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>C'Lovefluence</title>
+<link rel="icon" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="top">
+  <div class="logo"><span class="ball"></span><span>C'Love<b>fluence</b></span></div>
+  <nav class="tabs">
+    <button data-view="deck" class="on"><span>🔥</span>Découvrir</button>
+    <button data-view="matches"><span>💬</span>Matchs<i class="dot" id="matchDot"></i></button>
+    <button data-view="me"><span>👤</span>Mon profil</button>
+  </nav>
+</header>
+<main>
+  <section id="deck" class="view on">
+    <div class="stack" id="stack"></div>
+    <div class="deck-btns">
+      <button class="round no" id="btnNo" aria-label="Passer">✕</button>
+      <button class="round flag" id="btnFlag" aria-label="Signaler">⚑</button>
+      <button class="round yes" id="btnYes" aria-label="J'aime">♥</button>
+    </div>
+  </section>
+  <section id="matches" class="view">
+    <h1>Tes matchs</h1>
+    <p class="sub">Vous vous plaisez tous les deux : retrouvez-vous en jeu grâce à son pseudo.</p>
+    <div class="m-grid" id="mGrid"></div>
+  </section>
+  <section id="me" class="view">
+    <h1>Mon profil</h1>
+    <p class="sub">C'est ce que les autres dresseurs voient quand ils swipent.</p>
+    <form class="edit" id="edit" autocomplete="off">
+      <label class="lbl">Photos <small>4 max : ton perso, ta base, ton équipe…</small></label>
+      <div class="ph-grid" id="phGrid"></div>
+      <input type="file" id="phFile" accept="image/*" hidden>
+      <label class="lbl" for="fBio">Présentation <small id="bioN">0/300</small></label>
+      <textarea id="fBio" maxlength="300" rows="4" placeholder="Parle un peu de toi, de ce que tu aimes dans Cobblemon…"></textarea>
+      <label class="lbl" for="fFav">Pokémon préféré</label>
+      <div class="poke-in"><img id="favImg" alt=""><input id="fFav" list="pokeList" placeholder="Tape un nom : Pikachu, Évoli…"></div>
+      <label class="lbl" for="fTeam">Mon équipe <small>6 max</small></label>
+      <div class="team" id="team"></div>
+      <input id="fTeam" list="pokeList" placeholder="Ajouter un Pokémon puis Entrée">
+      <label class="lbl">Ce que j'aime en jeu</label>
+      <div class="tags" id="tags"></div>
+      <label class="lbl" for="fServer">Serveur</label>
+      <input id="fServer" maxlength="40" placeholder="Nom ou adresse du serveur">
+      <label class="lbl" for="fMc">Pseudo en jeu <small>visible seulement par tes matchs</small></label>
+      <input id="fMc" maxlength="16" pattern="[A-Za-z0-9_]{3,16}" title="Ton pseudo Minecraft : 3 à 16 lettres, chiffres ou _" placeholder="Ton pseudo Minecraft">
+      <label class="lbl" for="fBirth">Date de naissance <small>18 ans minimum · seul ton âge est affiché · non modifiable</small></label>
+      <input id="fBirth" type="date" required>
+      <div class="edit-btns"><button class="btn" id="save">Enregistrer</button><button type="button" class="btn ghost" id="logout">Se déconnecter</button></div>
+    </form>
+  </section>
+</main>
+<datalist id="pokeList"></datalist>
+<div id="overlay" class="overlay" hidden></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="pokemon.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>
