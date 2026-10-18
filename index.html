@@ -7,7 +7,7 @@
 <link rel="icon" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <header class="top">
@@ -52,8 +52,8 @@
       <input id="fServer" maxlength="40" placeholder="Ton quartier">
       <label class="lbl" for="fMc">Prénom <small>visible seulement par tes matchs</small></label>
       <input id="fMc" maxlength="30" placeholder="Ton prénom">
-      <label class="lbl" for="fBirth">Date de naissance <small>18 ans minimum · seul ton âge est affiché · non modifiable</small></label>
-      <input id="fBirth" type="date" required>
+      <label class="lbl" for="fBirth">Âge <small>18 ans minimum · non modifiable</small></label>
+      <input id="fBirth" type="number" min="18" max="99" required placeholder="Ton âge">
       <div class="edit-btns"><button class="btn" id="save">Enregistrer</button><button type="button" class="btn ghost" id="logout">Se déconnecter</button></div>
     </form>
   </section>
@@ -61,7 +61,7 @@
 <datalist id="pokeList"></datalist>
 <div id="overlay" class="overlay" hidden></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="pokemon.js?v=2"></script>
-<script src="app.js?v=2"></script>
+<script src="pokemon.js?v=3"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>

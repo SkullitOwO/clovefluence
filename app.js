@@ -72,6 +72,10 @@ function profileCard(p) {
       ${p.team?.length ? `<div class="tm">${p.team.map(id => `<img src="${mini(id)}" title="${esc(POKE[id - 1])}" alt="">`).join('')}</div>` : ''}
     </div></div>`;
 }
+// On ne demande que l'âge ; le serveur garde une date (milieu d'année) pour que l'âge augmente tout seul chaque année
+const birthOf = age => { const d = new Date(); d.setFullYear(d.getFullYear() - age); d.setMonth(d.getMonth() - 6); return d.toISOString().slice(0, 10); };
+const ageOf = b => Math.floor((Date.now() - new Date(b)) / (365.25 * 864e5));
+console.assert(ageOf(birthOf(25)) === 25 && ageOf(birthOf(18)) === 18, 'âge');
 const hue = s => `hsl(${[...String(s)].reduce((a, c) => a + c.charCodeAt(0) * 37, 0) % 360} 70% 62%)`;
 
 /* ---------- Pile à swiper ---------- */
@@ -192,8 +196,7 @@ function fillEdit() {
   $('#fBio').value = profile.bio; $('#bioN').textContent = `${profile.bio.length}/300`;
   $('#fFav').value = profile.fav ? POKE[profile.fav - 1] : ''; favPreview();
   $('#fServer').value = profile.server; $('#fMc').value = profile.mc;
-  $('#fBirth').value = profile.birth; $('#fBirth').disabled = !!profile.birth;
-  $('#fBirth').max = new Date(Date.now() - 18 * 365.25 * 864e5).toISOString().slice(0, 10);
+  $('#fBirth').value = profile.birth ? ageOf(profile.birth) : ''; $('#fBirth').disabled = !!profile.birth;
   renderPhotos(); renderTeam(); renderTags();
 }
 function renderPhotos() {
@@ -255,7 +258,7 @@ $('#edit').onsubmit = async e => {
   e.preventDefault();
   const fav = pokeId($('#fFav').value);
   if ($('#fFav').value.trim() && !fav) return toast('Pokémon préféré inconnu : choisis-le dans la liste.');
-  Object.assign(profile, { bio: $('#fBio').value.trim(), fav, server: $('#fServer').value.trim(), mc: $('#fMc').value.trim(), birth: $('#fBirth').value });
+  Object.assign(profile, { bio: $('#fBio').value.trim(), fav, server: $('#fServer').value.trim(), mc: $('#fMc').value.trim(), birth: profile.birth || birthOf(+$('#fBirth').value) });
   const { mc, birth, ...row } = profile;
   $('#save').disabled = true;
   try {
