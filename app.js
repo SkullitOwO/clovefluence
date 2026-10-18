@@ -8,7 +8,8 @@ const ERR = { 'Invalid login credentials': 'Pseudo ou mot de passe incorrect.', 
 const art = id => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
 const mini = id => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`;
 const pokeId = name => { const i = POKE.findIndex(n => n.toLowerCase() === name.trim().toLowerCase()); return i < 0 ? null : i + 1; };
-const TAGS = ['⚔️ Combats', '✨ Shiny hunting', '🎯 Capture', '🏠 Construction', '🧭 Exploration', '💰 Commerce', '🐉 Raids', '🥚 Élevage', '📖 Pokédex', '😌 Chill'];
+const TAGS = ['🍔 Nourriture', '💪 Muscu', '⚽ Sport', '🛍️ Shopping', '🎵 Musique', '🎬 Films', '🎮 Jeux vidéo', '✈️ Voyages', '🐾 Animaux', '🎨 Art', '📚 Lecture', '🎉 Soirées',
+  '⚔️ Combats', '✨ Shiny hunting', '🎯 Capture', '🏠 Construction', '🧭 Exploration', '💰 Commerce', '🐉 Raids', '🥚 Élevage', '📖 Pokédex', '😌 Chill'];
 let me = null, profile = null, deck = [];
 
 function toast(msg) {
@@ -140,7 +141,7 @@ async function showMatch(p) {
   o.hidden = false; o.className = 'overlay match';
   o.innerHTML = `<div class="match-box"><h2>C'est un match !</h2><p>${esc(p.pseudo)} a aussi craqué pour toi.</p>
     <div class="duo"><img src="${art(profile.fav || 25)}" alt=""><span>♥</span><img src="${art(p.fav || 25)}" alt=""></div>
-    ${m?.mc ? `<p>Son pseudo en jeu : <b class="copy" title="Copier">${esc(m.mc)}</b></p>` : '<p>Pas encore de pseudo en jeu sur son profil : retrouve-le dans tes matchs.</p>'}
+    ${m?.mc ? `<p>Son prénom : <b>${esc(m.mc)}</b></p>` : ''}<p>Retrouvez-vous à la taverne !</p>
     <button class="btn" id="mOk">Continuer à swiper</button></div>`;
   $('#mOk').onclick = () => { o.hidden = true; };
   o.querySelector('.copy')?.addEventListener('click', e => copy(e.target.textContent));
@@ -174,7 +175,7 @@ async function refreshMatches() {
   $('#mGrid').innerHTML = ms.map(m => `<div class="mcard">
       <div class="m-ph" style="--c:${hue(m.pseudo)}">${m.photos?.[0] ? `<img src="${esc(m.photos[0])}" alt="">` : `<img class="pk" src="${art(m.fav || 25)}" alt="">`}</div>
       <div class="m-in"><b>${esc(m.pseudo)}, ${m.age}</b>${m.server ? `<small>📍 ${esc(m.server)}</small>` : ''}
-        ${m.mc ? `<button class="disc" data-copy="${esc(m.mc)}" title="Copier">🎮 ${esc(m.mc)}</button>` : '<small class="muted">Pas encore de pseudo en jeu</small>'}
+        ${m.mc ? `<span class="disc">💌 ${esc(m.mc)}</span>` : ''}
         <button class="link" data-un="${m.id}">Retirer</button></div></div>`).join('')
     || `<div class="empty"><img src="${art(39)}" alt=""><h2>Pas encore de match</h2><p>Swipe à droite les dresseurs qui te plaisent !</p></div>`;
   $('#mGrid').dataset.n = ms.length;
@@ -182,7 +183,7 @@ async function refreshMatches() {
 $('#mGrid').onclick = async e => {
   const c = e.target.closest('[data-copy]'), u = e.target.closest('[data-un]');
   if (c) copy(c.dataset.copy);
-  if (u && confirm('Retirer ce match ? Vous ne verrez plus vos pseudos en jeu.')) { must(await sb.rpc('cm_unmatch', { p_id: u.dataset.un })); refreshMatches(); }
+  if (u && confirm('Retirer ce match ?')) { must(await sb.rpc('cm_unmatch', { p_id: u.dataset.un })); refreshMatches(); }
 };
 
 /* ---------- Mon profil ---------- */

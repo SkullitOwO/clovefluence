@@ -19,7 +19,7 @@ create table if not exists cm_profiles (
 create table if not exists cm_private (
   id uuid primary key references auth.users on delete cascade,
   birth date not null,
-  mc text not null default '' check (mc ~ '^([A-Za-z0-9_]{3,16})?$')
+  mc text not null default '' check (length(mc) <= 30) -- prénom, donné seulement aux matchs
 );
 create table if not exists cm_swipes (
   from_id uuid not null references auth.users on delete cascade,
@@ -38,6 +38,9 @@ create table if not exists cm_reports (
 );
 
 alter table cm_profiles enable row level security;
+alter table cm_private drop constraint if exists cm_private_mc_check;
+alter table cm_private drop constraint if exists cm_private_prenom;
+alter table cm_private add constraint cm_private_prenom check (length(mc) <= 30);
 alter table cm_private enable row level security;
 alter table cm_swipes enable row level security;
 alter table cm_reports enable row level security;

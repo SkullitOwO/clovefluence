@@ -7,7 +7,7 @@
 <link rel="icon" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <header class="top">
@@ -29,7 +29,7 @@
   </section>
   <section id="matches" class="view">
     <h1>Tes matchs</h1>
-    <p class="sub">Vous vous plaisez tous les deux : retrouvez-vous en jeu grâce à son pseudo.</p>
+    <p class="sub">Vous vous plaisez tous les deux : retrouvez-vous à la taverne !</p>
     <div class="m-grid" id="mGrid"></div>
   </section>
   <section id="me" class="view">
@@ -46,12 +46,12 @@
       <label class="lbl" for="fTeam">Mon équipe <small>6 max</small></label>
       <div class="team" id="team"></div>
       <input id="fTeam" list="pokeList" placeholder="Ajouter un Pokémon puis Entrée">
-      <label class="lbl">Ce que j'aime en jeu</label>
+      <label class="lbl">Ce que j'aime <small>6 max</small></label>
       <div class="tags" id="tags"></div>
-      <label class="lbl" for="fServer">Serveur</label>
-      <input id="fServer" maxlength="40" placeholder="Nom ou adresse du serveur">
-      <label class="lbl" for="fMc">Pseudo en jeu <small>visible seulement par tes matchs</small></label>
-      <input id="fMc" maxlength="16" pattern="[A-Za-z0-9_]{3,16}" title="Ton pseudo Minecraft : 3 à 16 lettres, chiffres ou _" placeholder="Ton pseudo Minecraft">
+      <label class="lbl" for="fServer">Quartier</label>
+      <input id="fServer" maxlength="40" placeholder="Ton quartier">
+      <label class="lbl" for="fMc">Prénom <small>visible seulement par tes matchs</small></label>
+      <input id="fMc" maxlength="30" placeholder="Ton prénom">
       <label class="lbl" for="fBirth">Date de naissance <small>18 ans minimum · seul ton âge est affiché · non modifiable</small></label>
       <input id="fBirth" type="date" required>
       <div class="edit-btns"><button class="btn" id="save">Enregistrer</button><button type="button" class="btn ghost" id="logout">Se déconnecter</button></div>
@@ -61,7 +61,7 @@
 <datalist id="pokeList"></datalist>
 <div id="overlay" class="overlay" hidden></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
-<script src="pokemon.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<script src="pokemon.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>
